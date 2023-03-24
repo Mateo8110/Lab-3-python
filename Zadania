@@ -1,0 +1,155 @@
+Zadanie 1. Zdefiniuj następujące zbiory, wykorzystując Python comprehension:
+
+#Zdefiniuj następujące zbiory, wykorzystując Python comprehension:
+A = [1 -x for x in range(10)]
+print(A)
+B = [4**i for i in range(8)]
+print(B)
+C = [x for x in B if x % 2 ==0]
+print(C)
+
+Zadanie 2.Wygeneruj losowo 10 elementów, zapisz je do listy1, następnie wykorzystując Python 
+Comprehension zdefiniuj nową listę, która będzie zawierała tylko parzyste elementy.
+
+import random
+#genereujemy 10 losowych liczb z zakresu 1-100 i zapisujemy je do listy1
+Lista1 = [random.randint(1, 100) for i in range(10)]
+
+#wykorzystujemy Python Comprehension aby stworzyć nową listę zawierającą
+#tylko liczby parzyste
+
+Lista2 = [x for x in Lista1 if x % 2 == 0]
+#Wyswietlamy obie listy
+print("Lista1: ",Lista1)
+print("Lista2(tylko parzyste elemnty): ",Lista2)
+
+Zadanie 3. #Utwórz słownik z produktami spożywczymi do kupienia. Klucz to niech będzie nazwa produktu a
+#wartość - jednostka w jakiej się je kupuje (np. sztuki, kg itd.). Wykorzystaj Python Comprehension do
+#zdefiniowania nowej listy, gdzie będą produkty, których wartość to sztuki.
+
+produkty = {"jajka": "sztuki",
+            "mleko": "litry",
+            "chleb": "sztuki",
+            "banany": "kg",
+            "ser": "gramy",
+            "makaron": "szt"}
+
+produkty_sztuki = [produkt for produkt, jednostka in produkty.items() if jednostka == "sztuki"]
+print(produkty_sztuki)
+
+Zadanie 4. Zdefiniuj funkcje, która sprawdzi czy trójkąt jest prostokątny.
+
+def czy_trojkat_prostokatny(a, b, c):
+    # sprawdzamy, czy a jest najdłuższym bokiem
+    if b > a and b > c:
+        return a**2 == b**2 + c**2
+    # sprawdzamy, czy b jest nadłuższym bokiem
+    elif b > a and b > c:
+        return b**2 == a**2 + c**2
+    # w pozostałym przypadku c musi byc najdłuższym bokiem
+    else:
+        return c**2 == a**2 + b**2
+
+
+print(czy_trojkat_prostokatny(2, 4, 6))
+
+Zadanie 5. #Zdefiniuj funkcje która policzy pole trapezu. Funkcja ma przyjmować wartości domyślne.
+
+
+def Pole_trapezu(a=3,b=4,h=3):
+    pole = ((a + b)*h)/2
+    return pole
+
+print(Pole_trapezu())
+
+Zadanie 6. Zdefiniuj funkcję która będzie liczyć iloczyn elementów ciągu.Parametry funkcji a1 (wartość początkowa), b (wielkość o ile mnożone są kolejne elementy), ile (ile elementów ma mnożyć)
+Ponadto funkcja niech przyjmuje wartości domyślne: a = 1, b = 4, ile = 10
+Przykładowo:
+
+def iloczyn_ciagu(ciag):
+    iloczyn = 1
+    for element in ciag:
+        iloczyn *= element
+    return iloczyn
+
+ciag = (2, 4, 6, 8)
+iloczyn = iloczyn_ciagu(ciag)
+print("Nasz ciąg: ",ciag)
+print("Iloczyn tego ciągu wynosi: ",iloczyn)
+
+Poprawnie zrobione
+
+def iloczyn_Ciagu_arytmetycznego(a1=1, b=4, ile=10):
+    #inicjalizujemy zmienna iloczynu
+    iloczyn = a1
+    for i in range(1, ile):
+        iloczyn *= (a1 + i * b)
+    return iloczyn
+
+print(iloczyn_Ciagu_arytmetycznego())
+
+
+Zadanie 7. Napisz funkcje za pomocą operatora *, która wykona te same działanie co w zadaniu 6.
+
+
+#Trochę Zle zrobione!
+def iloczyn(a1=1, b=4, ile=10):
+    wynik = 1
+    for i in range(ile):
+        wynik *= a1
+        a1 *= b
+    return wynik
+
+print(iloczyn())
+
+Zadanie 8. Napisz funkcję, która wykorzystuje symbol **. Funkcja ma przyjmować listę zakupów w postaci: klucz 
+to nazwa produktu a wartość to jego koszt. Funkcja ma zliczyć ile jest wszystkich produktów w ogóle i 
+zwracać całościową wartość tych produktów.
+
+def ListaZakupow(** Lista):
+    koszt = 0
+    iloscProd = len(Lista)
+    for cena in Lista.values():
+        koszt += cena
+    return f"ilosc produktow: {iloscProd}, Całkowity koszt: {koszt}"
+
+print(ListaZakupow(Makaron=4.20,Pesto=2.70,Maslo=6.80,Chleb=8.50))
+
+
+Zadanie 11: 
+
+Pakiet Ciagi :(zawartosc)
+
+__init__.py  ///////////////////////
+
+__all__ = ["CiagiArytmetyczne", "CiagiGeometryczne"]
+
+CiagiArytmetyczne.py  //////////////////
+
+def Ciag_Ary(pierwszy_wyraz, róznica, n):
+    """
+    Funkcja zwraca n-ty wyraz ciągu arytmetycznego o pierwszym 	wyrazie
+    i różnicy .
+    """
+    nty_wyraz = pierwszy_wyraz + (n - 1) * róznica
+    return nty_wyraz
+
+CiagiGeometryczne.py  ////////////////
+
+def Ciag_Geo(pierwszy_wyraz, iloraz, n):
+    """
+    Funkcja zwraca n-ty wyraz ciągu geometrycznego o pierwszym wyrazie
+    i ilorazie.
+    """
+    nty_wyraz = pierwszy_wyraz * iloraz ** (n - 1)
+    return nty_wyraz
+
+Odwołanie do pakietu w programie głownym:
+
+import Ciagi.CiagiArytmetyczne, Ciagi.CiagiGeometryczne
+
+a = 2
+b = 1
+n = 6
+print(Ciagi.CiagiArytmetyczne.Ciag_Ary(a, b, n))
+print(Ciagi.CiagiGeometryczne.Ciag_Geo(a, b, n))
